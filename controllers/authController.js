@@ -78,7 +78,7 @@ const registrationConfirm = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  res.clearCookie("token");
+  res.clearCookie("rui-auth-token");
   const { email, password } = req.body;
   const user = (await User.getUserByEmail(email))[0];
 
@@ -90,7 +90,7 @@ const login = async (req, res) => {
   if (user && !user.account_state)
     return res.json({
       status: false,
-      msg: "Please confirm your email address",
+      msg: "Please confirm your email address before you sign in",
     });
 
   const isValid = await utils.validPassword(password, user.password);
@@ -98,17 +98,18 @@ const login = async (req, res) => {
   if (isValid) {
     const tokenObject = utils.issueJWT(user);
     res
-      .cookie("token", tokenObject.token, {
-        path: "/",
-        httpOnly: true,
-        expires: new Date(
-          new Date().getTime() +
-            1000 * 60 * 60 * 24 * process.env.TOKEN_EXPIRE_TIME
-        ),
-      })
+      // .cookie("rui-auth-token", tokenObject.token, {
+      //   path: "/",
+      //   httpOnly: true,
+      //   expires: new Date(
+      //     new Date().getTime() +
+      //       1000 * 60 * 60 * 24 * process.env.TOKEN_EXPIRE_TIME
+      //   ),
+      // })
       .json({
         status: true,
         msg: "successful",
+        rui_auth_token: tokenObject.token,
       });
   } else {
     res.send({ status: false, msg: "password is wrong" });
