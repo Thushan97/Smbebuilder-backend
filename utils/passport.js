@@ -3,7 +3,7 @@ const JwtStrategy = require("passport-jwt").Strategy;
 
 var cookieExtractor = function (req) {
   var token = null;
-  if (req && req.cookies) token = req.cookies["token"];
+  if (req && req.cookies) token = req.cookies["rui-auth-token"];
   return token;
 };
 const option = {
