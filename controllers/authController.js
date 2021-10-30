@@ -139,7 +139,7 @@ const forgotPassword = async (req, res) => {
   const stringified = queryString.stringify({ email, userId, token });
 
   replacements = {
-    password_reset_link: `${process.env.REACT_APP_URL}/password-reset?${stringified}`,
+    password_reset_link: `${process.env.REACT_APP_URL}/#/password-reset-form?${stringified}`,
   };
 
   mailer
@@ -167,8 +167,16 @@ const forgotPassword = async (req, res) => {
 
 const resetPassword = async (req, res) => {
   const { userId, email, token, password } = req.body;
+
+  if (!userId || !email || !token || !password)
+    return res.json({
+      status: false,
+      msg: "False verification details. Please try again.",
+    });
+
   const user = (await User.getUserById(userId))[0];
   const resetToken = (await User.getPasswordResetToken(userId))[0];
+
   if (!user || user.email !== email)
     return res.json({
       status: false,
