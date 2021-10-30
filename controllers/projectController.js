@@ -3,6 +3,7 @@ const AuthController = require("../controllers/authController");
 const Fs = require("fs");
 const Path = require("path");
 const Axios = require("axios");
+const utils = require("../utils/utils");
 
 require("express-async-errors");
 
@@ -214,6 +215,10 @@ const downloadProject = async(req, res) =>{
     return res.json({ status: false, msg: "Not found user" });
 }
 
+const openProject = async (req, res) => {
+  res.send("https://app.smbebuilder.com/app/builder.html");
+};
+
 
 module.exports = {
     createProject,
@@ -222,4 +227,6 @@ module.exports = {
     downloadProject,
     getAllProjects,
     singleProject,
+    openProject,
   };
+
