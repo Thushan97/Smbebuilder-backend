@@ -63,8 +63,8 @@ const setPasswordResetToken = async (data) => {
   )[0];
   if (oldToken) {
     await db.queryExecutor(
-      "UPDATE password_resetting SET token = ? WHERE id = ?",
-      [token, userId]
+      "UPDATE password_resetting SET token = ? WHERE user_id = ?",
+      [token, oldToken.user_id]
     );
   } else {
     await db.queryExecutor("INSERT INTO password_resetting VALUES (?, ?, ?)", [
