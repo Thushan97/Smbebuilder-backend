@@ -8,5 +8,6 @@ router.post("/updateProject/:id", ensureAuthenticated, projectController.updateP
 router.post("/delete/:id",  ensureAuthenticated, projectController.deleteProject);
 router.get("/allProjects", ensureAuthenticated, projectController.getAllProjects);
 router.get("/singleProject/:id", ensureAuthenticated, projectController.singleProject);
+router.get("/downloadProject/:id",ensureAuthenticated, projectController.downloadProject);
 
 module.exports = router;

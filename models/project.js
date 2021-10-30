@@ -30,7 +30,12 @@ const getProject = async(data) =>{
 }
 
 const getProjectCount = async(id) => {
-    return db.queryExecutor("COUNT(*) project_count FROM project WHERE user_id = ?", [id])
+    return db.queryExecutor("SELECT COUNT(*) project_count FROM project WHERE user_id = ?", [id])
+}
+
+const getUserProjectByName = async(data) => {
+    const {userId, projectName} = data
+    return db.queryExecutor("SELECT name FROM project WHERE user_id = ? AND name = ?", [userId, projectName])
 }
 
 const updateCurrentProject = async (data) => {
@@ -55,4 +60,5 @@ module.exports = {
     allProject,
     getProject,
     getProjectCount,
+    getUserProjectByName,
   };
