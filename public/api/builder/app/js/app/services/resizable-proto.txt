@@ -1,0 +1,63 @@
+  $(function() {
+    
+    if($('.col-xs-12').width()>720 && $('.col-xs-12').width()==$('.container').width())
+    {
+    $( "#resizable" ).resizable({ maxWidth: $('.container').width()-200 });
+    $( "#resizable" ).on( "resize", 
+    function( event, ui ) {
+		$('#mirror').css('width', $('.container').width() - $( "#resizable" ).width() );
+		});
+    $('.col-xs-12').css('width','50%');
+    }
+    else {
+    $( "#resizable" ).resizable({ disabled: true });
+    }  
+  
+	$( window ).resize(function() {  
+	  if($('.container').width()<=720){
+	  $('.col-xs-12').css('width','100%');
+	  $( "#resizable" ).resizable();
+      }
+      else {
+		  $( "#resizable" ).resizable({ disabled: false });
+		  if($('.col-xs-12').width()==$('.container').width())$('.col-xs-12').css('width','100%');
+		  else {
+              $( "#resizable" ).css('width',( $('#resizable').width() / ($('#resizable').width() + $('#mirror').width()) ) * $('.container').width());
+			var colWidth = $(this).width();	
+            if( $( "#resizable" ).width() < 50%
+                  $( "#resizable" ).toggleClass('col-xs-12 col-xs-6').css('width', ''));
+            else{
+            	$('#mirror').toggleClass('col-xs-12 col-xs-6').css('width', '');
+            }
+            
+            
+		  } 
+	  }     	  
+  });
+  
+  });
+  
+  
+ .col-md-1   if <= 8.33333333% (.col-md-1 ) else if <= 15% = .col-md-1 
+if 16.66666667% = .col-md-2  
+if 25% = .col-md-3
+if 33.33333333% = .col-md-4  
+if 41.66666667% = .col-md-5  
+if 58.33333333% = .col-lg-7      
+if 50% = .col-lg-6      
+if 66.66666667% = .col-md-8  
+if 75% = .col-md-9
+if 83.33333333% = .col-md-10
+if 91.66666667% = .col-md-11   
+if 100% = .col-md-12 
+
+
+<div class="container">
+ <div class="row">
+	 <div id="resizable" class="col-xs-12" style="background-color:green;">column 1</div>
+	 <div id="mirror" class="col-xs-12" style="background-color:red;">column 2</div>
+ </div> 	 
+</div> 
+
+
+http://troolee.github.io/gridstack.js/gridstack.js

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const projectController = require("../controllers/projectController");
+
 const { ensureAuthenticated } = require("../middlewares/auth");
 
 
@@ -11,6 +12,8 @@ router.get("/allProjects", ensureAuthenticated, projectController.getAllProjects
 router.get("/singleProject/:id", ensureAuthenticated, projectController.singleProject);
 router.get("/downloadProject/:id",ensureAuthenticated, projectController.downloadProject);
 router.get("/open", ensureAuthenticated, projectController.openProject);
+
+
 
 module.exports = router;
 

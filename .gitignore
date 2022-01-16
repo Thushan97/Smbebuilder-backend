@@ -31,5 +31,18 @@ yarn-error.log*
 
 .http
 
-/public
+/public/api/builder/app/ace
+/public/api/builder/app/addons
+/public/api/builder/app/css
+/public/api/builder/app/fonts
+/public/api/builder/app/images
+/public/api/builder/app/imagesService
+/public/api/builder/app/img
+/public/api/builder/app/Landing_pages_bundle
+/public/api/builder/app/manual
+/public/api/builder/app/material_assets
+/public/api/builder/app/myProjects
+
+
 /smbebuilderApp
+/bucket

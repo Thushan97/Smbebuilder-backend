@@ -93,6 +93,49 @@ const resetPassword = async (data) => {
   ]);
 };
 
+const changePlan = async (data) => {
+  const { id, type, planStart, planEnd } = data;
+  var result = await db.queryExecutor("UPDATE user SET type = ?,plan_started = ?,plan_expire = ? WHERE id = ?", [
+    type,
+    planEnd,
+    planStart,
+    id,
+  ]);
+  console.log(`result`, result);
+  return result;
+};
+
+const addImages = async (data) => {
+  const { userID, imageURL } = data;
+  await db.queryExecutor(
+    "INSERT INTO user_image (userID, imageID, isDelete) VALUES (?, ?, ?)",
+    [
+      userID,
+      imageURL,
+      false
+    ]
+  );
+};
+
+
+const getImages = async (userID) => {
+  var out = await db.queryExecutor(
+    "SELECT * FROM user_image WHERE userID = ?",//SELECT * FROM user_image WHERE userID = ?",
+    [userID]
+  );
+  console.log(`out`, out[1]);
+  return out;
+};
+
+
+const removeImages = async (data) => {
+  const { userID, id } = data;
+  await db.queryExecutor("DELETE FROM user_image WHERE userID = ? AND id = ?", [
+    userID,
+    id,
+  ]);
+};
+
 module.exports = {
   getUserById,
   getUserByEmail,
@@ -101,4 +144,7 @@ module.exports = {
   setPasswordResetToken,
   getPasswordResetToken,
   resetPassword,
+  changePlan,
+  addImages,
+  getImages
 };

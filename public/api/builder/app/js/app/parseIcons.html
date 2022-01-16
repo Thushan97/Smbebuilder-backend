@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="../jquery-2.1.1.min.js"></script>
+<style>
+	body{
+		text-align:center;
+		padding-top:100px;
+	}
+	textarea {
+		display:block;
+		margin:0 auto;
+		width:800px;
+		height:300px;
+	}
+	button {
+		margin-top:20px;
+		padding: 3px;
+	}
+	input {
+		width:500px;
+		margin-top:20px;
+	}
+</style>
+</head>
+<body>
+	<form>
+		<textarea id="area">
+		</textarea>
+		<button type="button" class="parse" id="btstrp">Parse bootstrap</button>
+		<button type="button" class="parse" id="fntwsm">Parse font awesome</button>
+		</br>
+		<label>
+		<span>Result: </span>
+		<input type="text" id="result"/>
+		</label>
+	</form>
+	
+<script>
+	$('.parse').on('click', parseArea);
+	function parseArea() {
+		var area = $('#area').val(),
+			classes = [];
+		//area.match(/(?:(?!"fa\s))fa-\D*(?:(?=">))/g);
+		$('body').append('<div id="parseme"><\/div>');
+		var parseme = $('#parseme');
+		parseme.css('display', 'none').append(area);
+		
+		if ($(this).attr('id') === 'fntwsm') {
+			parseFontAwesome()
+		} else {
+			parseBootstrap()
+		}
+		
+		function parseFontAwesome() {
+			parseme.find('div.fa-hover i').each(
+				function () {
+					splitClasses($(this), 'fa-');
+				}
+			);
+		}
+		
+		function parseBootstrap() {
+			parseme.find('li span:first-child').each(
+				function() {
+					splitClasses($(this), 'glyphicon-');
+				}
+			);
+		}
+		
+		function splitClasses(el, pref) {
+			var iconClass = el.attr('class'),
+				index = iconClass.indexOf(pref);
+							
+			classes.push(iconClass.substr(index, iconClass.length - index));
+			
+		}
+		
+		$('#result').val(classes);
+		parseme.remove();
+	}
+</script>
+</body>
+</html>

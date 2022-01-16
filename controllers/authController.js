@@ -39,7 +39,7 @@ const register = async (req, res) => {
     email,
   });
   const verificationURL = `${process.env.BASE_URL}/api/auth/register-confirm?${stringified}`;
-
+  console.log(verificationURL);
   mailer
     .sendMail({
       from: "SMBebuilder",
